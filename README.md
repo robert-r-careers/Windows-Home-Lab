@@ -3,7 +3,7 @@ Build Disposable VM's for your home labs.
 
 Build the Base versions first.....
 Download Windows ISO's and Virtoio-win.iso (guest tools)
-# Architecture: Linux, KVM, QEUM, Lbivirt and Virt-Manager
+# Architecture: Ubuntu 24.04.1, GNU/LINUX KVM
 - **Base image pipeline** → sysprepped `qcow2` under an images directory.
 - **Child VMs** → `qcow2` with `-b base.qcow2` backing; explicit `-F qcow2`.
 - **VirtIO** drivers and QEMU guest tools installed in base image.
