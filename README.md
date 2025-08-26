@@ -1,4 +1,4 @@
-Windows-Lab-Tools
+Windows-Home-Lab
 
 Build disposable Windows VMs for your home lab
 
