@@ -72,8 +72,7 @@ C:\Windows\System32\Sysprep\Sysprep.exe /generalize /oobe /shutdown /mode:vm
 
 Post Windows 11 Setup (Host Machine) \
 (Optional) compact/compress: \
-sudo qemu-img convert -O qcow2 -c /var/lib/libvirt/images/base/win11-base.qcow2 \
- /var/lib/libvirt/images/base/win11-base.comp2.qcow2 && \
+sudo qemu-img convert -O qcow2 -c /var/lib/libvirt/images/base/win11-base.qcow2 /var/lib/libvirt/images/base/win11-base.comp2.qcow2 \ 
 sudo mv /var/lib/libvirt/images/base/win11-base.comp2.qcow2 /var/lib/libvirt/images/base/win11-base.qcow2 
 
 Lock it read-only: \
@@ -92,8 +91,7 @@ C:\Windows\System32\Sysprep\Sysprep.exe /generalize /oobe /shutdown /mode:vm
 
 Post Windows Server Setup (Host Machine)
 (Optional) compact/compress:
-sudo qemu-img convert -O qcow2 -c /var/lib/libvirt/images/base/win11-base.qcow2 \
- /var/lib/libvirt/images/base/win11-base.comp.qcow2 && \
+sudo qemu-img convert -O qcow2 -c /var/lib/libvirt/images/base/win11-base.qcow2 /var/lib/libvirt/images/base/win11-base.comp.qcow2 \
 sudo mv /var/lib/libvirt/images/base/win11-base.comp.qcow2 /var/lib/libvirt/images/base/win11-base.qcow2
 
 Lock it read-only: \
