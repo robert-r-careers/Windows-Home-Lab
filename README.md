@@ -12,7 +12,7 @@ sudo usermod -aG kvm,libvirt $USER
 newgrp libvirt
 
 # 3. Download Windows + VirtIO ISOs
-bash ./Get-Win_ISO.sh
+bash ./Get-Win_ISO.sh (uncomment respective ISO URL's before running)
 
 # 4. Build a Windows 11 base image
 bash ./qemu-kvm_win_11_base.sh
