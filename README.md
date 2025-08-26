@@ -29,32 +29,32 @@ bash ./c_win11_client.sh
 Windows 11 Base \
 Script: qemu-kvm_win_11_base.sh \
 Ensure host prerequisites are installed; add user to libvirt + kvm groups. \
-Download Windows 11 ISO + VirtIO ISO (Get-Win_ISO.sh). \
+Download Windows 11 ISO + VirtIO ISO (Get-Win_ISO.sh). 
 
 Run: \
 bash ./qemu-kvm_win_11_base.sh \
 During Windows setup, load VirtIO storage + network drivers from the VirtIO ISO. \
 Install guest tools, apply updates. \
 Run sysprep: \
-Sysprep.exe /generalize /oobe /shutdown /mode:vm \
+Sysprep.exe /generalize /oobe /shutdown /mode:vm 
 
 Windows Server Base \
 Script: qemu-kvm_win_srv_base.sh \
 Steps mirror Windows 11, with server-specific VirtIO paths. \
 Ensure host prerequisites are installed; user in libvirt + kvm. \
-Download Windows Server ISO + VirtIO ISO (Get-Win_ISO.sh). \
+Download Windows Server ISO + VirtIO ISO (Get-Win_ISO.sh). 
 
 Run: \
 bash ./qemu-kvm_win_srv_base.sh \
 Load VirtIO drivers. \
 Install guest tools. \
-Run sysprep + shutdown. \
+Run sysprep + shutdown. 
 
 Child VMs \
 Scripts: \
 Windows 11 Client → c_win11_client.sh \
 Windows Server → c_win_server.sh \
-These scripts clone from the locked base image to rapidly spin up new lab VMs. \
+These scripts clone from the locked base image to rapidly spin up new lab VMs. 
 
 🪟 Windows Setup Details \
 Windows 11 Setup (Inside VM-Windows11) \
@@ -74,12 +74,12 @@ Post Windows 11 Setup (Host Machine) \
 (Optional) compact/compress: \
 sudo qemu-img convert -O qcow2 -c /var/lib/libvirt/images/base/win11-base.qcow2 \
  /var/lib/libvirt/images/base/win11-base.comp2.qcow2 && \
-sudo mv /var/lib/libvirt/images/base/win11-base.comp2.qcow2 /var/lib/libvirt/images/base/win11-base.qcow2 \
+sudo mv /var/lib/libvirt/images/base/win11-base.comp2.qcow2 /var/lib/libvirt/images/base/win11-base.qcow2 
 
 Lock it read-only: \
 sudo chown libvirt-qemu:kvm /var/lib/libvirt/images/base/win11-base.qcow2 \
 sudo chmod 0444 /var/lib/libvirt/images/base/win11-base.qcow2 \
-sudo chattr +i /var/lib/libvirt/images/base/win11-base.qcow2   # optional hardening \
+sudo chattr +i /var/lib/libvirt/images/base/win11-base.qcow2   # optional hardening 
 
 Windows Server Setup (Inside VM-WindowsServer) \
 Load driver from VirtIO ISO: \
@@ -88,7 +88,7 @@ or 2k19/2k25 to match your version.
 Finish install, log in, run virtio-win-guest-tools.exe. \
 Apply minimal base tweaks/updates for gold image. \
 Generalize base (admin PowerShell): \
-C:\Windows\System32\Sysprep\Sysprep.exe /generalize /oobe /shutdown /mode:vm \
+C:\Windows\System32\Sysprep\Sysprep.exe /generalize /oobe /shutdown /mode:vm 
 
 Post Windows Server Setup (Host Machine)
 (Optional) compact/compress:
@@ -99,7 +99,7 @@ sudo mv /var/lib/libvirt/images/base/win11-base.comp.qcow2 /var/lib/libvirt/imag
 Lock it read-only: \
 sudo chown libvirt-qemu:kvm /var/lib/libvirt/images/base/win11-base.qcow2 \
 sudo chmod 0444 /var/lib/libvirt/images/base/win11-base.qcow2 \
-sudo chattr +i /var/lib/libvirt/images/base/win11-base.qcow2   # optional hardening \
+sudo chattr +i /var/lib/libvirt/images/base/win11-base.qcow2   # optional hardening 
 
 📌 Notes \
 Base images are sysprepped and locked read-only to ensure clean children.
@@ -112,4 +112,4 @@ Ideal for home labs, testing, and continuous learning.
 🚀 Roadmap \
 Windows host environment support. \
 Automated post-install configuration (updates, GPO templates, AD roles). \
-CI/CD integration for automated lab refresh. \
+CI/CD integration for automated lab refresh. 
