@@ -22,7 +22,58 @@ bash ./qemu-kvm_win_11_base.sh
 # 5. Build a disposable child VM from the base
 bash ./c_win11_client.sh
 
+
 👉 You now have a clean Windows 11 VM running on KVM, ready to break, test, and reset as often as you want.
+
+🖥️ Architecture
+              +-------------------+
+              |   Windows ISO(s)  |
+              |  + VirtIO Drivers |
+              +---------+---------+
+                        |
+                        v
+              +-------------------+
+              |   Base qcow2 VM   |  <-- Sysprepped, Guest Tools, Updates
+              |   (Read-Only)     |
+              +---------+---------+
+                        |
+                        v
+              +-------------------+
+              |   Child qcow2     |  <-- Backed by Base
+              |   (-b base.qcow2) |
+              +---------+---------+
+                        |
+                        v
+              +-------------------+
+              |  Disposable VM    |
+              |   (Lab Workload)  |
+              +-------------------+
+
+🖥️ Multi-VM Architecture
+              +-------------------+
+              |   Windows ISO(s)  |
+              |  + VirtIO Drivers |
+              +---------+---------+
+                        |
+                        v
+              +-------------------+
+              |   Base qcow2 VM   |  <-- Sysprepped, Guest Tools, Updates
+              |   (Read-Only)     |
+              +---------+---------+
+                        |
+         ----------------+-------------------
+         |               |                 |
+         v               v                 v
+ +---------------+  +---------------+  +---------------+
+ | Child qcow2   |  | Child qcow2   |  | Child qcow2   |
+ |  (AD Forest)  |  |  (SCCM Lab)   |  | (File Shares) |
+ +-------+-------+  +-------+-------+  +-------+-------+
+         |                  |                  |
+         v                  v                  v
+ +---------------+  +---------------+  +---------------+
+ | Disposable VM |  | Disposable VM |  | Disposable VM |
+ | (AD Testing)  |  | (MECM Config) |  | (Infra Tests) |
+ +---------------+  +---------------+  +---------------+
 
 ⚙️ Build Runbooks
 Windows 11 Base
@@ -40,7 +91,7 @@ bash ./qemu-kvm_win_11_base.sh
 
 During Windows setup, load VirtIO storage + network drivers from the VirtIO ISO.
 
-Install guest tools, apply updates.
+Install guest tools and apply updates.
 
 Run sysprep:
 
@@ -86,7 +137,7 @@ Load Stor driver from:
 
 vioscsi\w11\amd64 (recommended)
 
-or viostor\w11\amd64 if using virtio-blk.
+viostor\w11\amd64 if using virtio-blk
 
 Proceed with install.
 
@@ -97,7 +148,7 @@ virtio-win-guest-tools.exe
 
 (installs NetKVM, Balloon, QEMU Guest Agent, etc.)
 
-Apply minimal baseline tweaks/updates you want baked into the gold image.
+Apply baseline tweaks/updates you want baked into the gold image.
 
 Generalize base (admin PowerShell):
 
@@ -119,27 +170,17 @@ sudo chmod 0444 /var/lib/libvirt/images/base/win11-base.qcow2
 sudo chattr +i /var/lib/libvirt/images/base/win11-base.qcow2   # optional hardening
 
 
-NOTES:
-
-Never boot directly from the base after locking it. Always use children.
-
-Keep the VirtIO ISO mounted during setup for storage + network drivers.
-
-If --os-variant isn’t recognized, query available IDs:
-
-osinfo-query os | grep -i windows
-
 Windows Server Setup (Inside VM-WindowsServer)
 
 Load driver from VirtIO ISO:
 
 vioscsi\2k22\amd64 (for 2022)
 
-or 2k19/2k25 to match your version.
+or 2k19 / 2k25 depending on your version
 
 Finish install, log in, run virtio-win-guest-tools.exe.
 
-Apply minimal base tweaks/updates for gold image.
+Apply baseline tweaks/updates for gold image.
 
 Generalize base (admin PowerShell):
 
@@ -175,14 +216,14 @@ osinfo-query os | grep -i windows
 
 Base images are sysprepped and locked read-only to ensure clean children.
 
-Built for Linux host environments today; Windows host support in progress.
+Built for Linux host environments today; Windows host support is in progress.
 
 Ideal for home labs, testing, and continuous learning.
 
 🚀 Roadmap
 
-Windows host environment support.
+Windows host environment support
 
-Automated post-install configuration (updates, GPO templates, AD roles).
+Automated post-install configuration (updates, GPO templates, AD roles)
 
-CI/CD integration for automated lab refresh.
+CI/CD integration for automated lab refresh
