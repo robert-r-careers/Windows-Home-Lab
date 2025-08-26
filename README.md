@@ -27,5 +27,5 @@ Steps mirror Windows 11 with server-specific VirtIO drivers path.
 6) Sysprep and shut down.
 
 # Build Child VM's – Runbook (see "c_win11_client.sh" "c_win_server.sh")
-Windows 11 Client VM:  c_win11_client.sh
+Windows 11 Client VM:  c_win11_client.sh \
    Windows Server VM:  c_win_server.sh
