@@ -12,7 +12,7 @@ Download Windows ISO's and Virtoio-win.iso (guest tools)
 # Build Windows 11 Base – Runbook (see "qemu-kvm_win_11_base.sh")
 1) Ensure host prereqs installed; user in `libvirt` and `kvm` groups.
 2) Download Windows and VirtIO ISOs (see Get-Win_ISO.sh).
-3) Run: `bash ./src/sh/qemu-kvm_win_11_base.sh`.
+3) Run: `bash ./qemu-kvm_win_11_base.sh`.
 4) In Windows setup: load VirtIO storage/network drivers from the VirtIO ISO.
 5) Install guest tools, Windows updates as needed.
 6) Sysprep: `Sysprep.exe /generalize /oobe /shutdown /mode:vm`.
@@ -21,7 +21,7 @@ Download Windows ISO's and Virtoio-win.iso (guest tools)
 Steps mirror Windows 11 with server-specific VirtIO drivers path.
 1) Ensure host prereqs installed; user in `libvirt` and `kvm` groups.
 2) Download Server and VirtIO ISOs (see see "Get-Win_ISO.sh").
-3) Run: `bash ./src/sh/qemu-kvm_win_srv_base.sh`.
+3) Run: `bash ./qemu-kvm_win_srv_base.sh`.
 4) Load VirtIO storage/network drivers from the VirtIO ISO.
 5) Install guest tools.
 6) Sysprep and shut down.
