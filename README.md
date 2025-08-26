@@ -22,58 +22,7 @@ bash ./qemu-kvm_win_11_base.sh
 # 5. Build a disposable child VM from the base
 bash ./c_win11_client.sh
 
-
 👉 You now have a clean Windows 11 VM running on KVM, ready to break, test, and reset as often as you want.
-
-🖥️ Architecture
-              +-------------------+
-              |   Windows ISO(s)  |
-              |  + VirtIO Drivers |
-              +---------+---------+
-                        |
-                        v
-              +-------------------+
-              |   Base qcow2 VM   |  <-- Sysprepped, Guest Tools, Updates
-              |   (Read-Only)     |
-              +---------+---------+
-                        |
-                        v
-              +-------------------+
-              |   Child qcow2     |  <-- Backed by Base
-              |   (-b base.qcow2) |
-              +---------+---------+
-                        |
-                        v
-              +-------------------+
-              |  Disposable VM    |
-              |   (Lab Workload)  |
-              +-------------------+
-
-🖥️ Multi-VM Architecture
-              +-------------------+
-              |   Windows ISO(s)  |
-              |  + VirtIO Drivers |
-              +---------+---------+
-                        |
-                        v
-              +-------------------+
-              |   Base qcow2 VM   |  <-- Sysprepped, Guest Tools, Updates
-              |   (Read-Only)     |
-              +---------+---------+
-                        |
-         ----------------+-------------------
-         |               |                 |
-         v               v                 v
- +---------------+  +---------------+  +---------------+
- | Child qcow2   |  | Child qcow2   |  | Child qcow2   |
- |  (AD Forest)  |  |  (SCCM Lab)   |  | (File Shares) |
- +-------+-------+  +-------+-------+  +-------+-------+
-         |                  |                  |
-         v                  v                  v
- +---------------+  +---------------+  +---------------+
- | Disposable VM |  | Disposable VM |  | Disposable VM |
- | (AD Testing)  |  | (MECM Config) |  | (Infra Tests) |
- +---------------+  +---------------+  +---------------+
 
 ⚙️ Build Runbooks
 Windows 11 Base
