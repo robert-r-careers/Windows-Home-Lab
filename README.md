@@ -131,7 +131,7 @@ or 2k19 / 2k25 depending on your version
 
 Finish install, log in, run virtio-win-guest-tools.exe.
 
-Apply baseline tweaks/updates for gold image.
+Apply baseline tweaks/updates for base image.
 
 Generalize base (admin PowerShell):
 
@@ -154,7 +154,6 @@ sudo chattr +i /var/lib/libvirt/images/base/win11-base.qcow2   # optional harden
 
 
 NOTES:
-
 Never boot directly from the base after locking it. Always use children.
 
 Keep VirtIO ISO mounted during setup for storage + network drivers.
@@ -162,8 +161,6 @@ Keep VirtIO ISO mounted during setup for storage + network drivers.
 If --os-variant isn’t recognized, query available IDs:
 
 osinfo-query os | grep -i windows
-
-📌 Notes
 
 Base images are sysprepped and locked read-only to ensure clean children.
 
